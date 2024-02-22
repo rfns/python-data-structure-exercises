@@ -88,7 +88,7 @@ class LinkedList:
         self.tail_node = node
 
     def find_node_at(self, at_index) -> Node | None:
-        if at_index < 0 or at_index > self.get_size():
+        if at_index < 0 or at_index >= self.get_size():
             raise IndexOutOfBoundsError()
 
         iterator = self.get_iterator()
