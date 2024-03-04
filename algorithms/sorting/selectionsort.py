@@ -2,8 +2,8 @@ from copy import copy as copy_collection
 from random import randint
 
 
-def sort(original_collection):
-    target = copy_collection(original_collection)
+def sort(collection: list) -> list:
+    target = copy_collection(collection)
     cursor_position = 0
     collection_length = len(target)
 
@@ -25,15 +25,3 @@ def sort(original_collection):
         cursor_position += 1
 
     return target
-
-
-def main():
-    collection = []
-    for _ in range(1000):
-        collection.append(randint(0, 1000))
-
-    sorted_collection = sort(collection)
-    print(sorted_collection)
-
-
-main()

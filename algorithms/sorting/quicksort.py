@@ -1,13 +1,14 @@
 from copy import copy
-from random import randint, sample
+from math import floor
+from random import randint
 
 
-def hoare(working_list, low, high):
-    # pivot_index = floor((low + high) / 2)
-    pivot_index = randint(low, high)
+def do_hoare_partition(working_list, low, high):
+    pivot_index = floor((low + high) / 2)
+    # pivot_index = randint(low, high)
     pivot_value = working_list[pivot_index]
 
-    # Precisa aumentar a range porque os indices são calculados antes de realizar a aritmética.
+    # Must include boundaries as they get increased/decreased before the actual check.
     left_cursor_index = low - 1
     right_cursor_index = high + 1
 
@@ -30,10 +31,10 @@ def hoare(working_list, low, high):
         )
 
 
-def sort(unsorted_list, partion_scheme=hoare, immutable=False):
-    working_list = unsorted_list
+def sort(collection: list, immutable=False) -> list:
+    working_list = collection
     if immutable is True:
-        working_list = copy(unsorted_list)
+        working_list = copy(collection)
 
     last_index = len(working_list) - 1
 
@@ -41,7 +42,7 @@ def sort(unsorted_list, partion_scheme=hoare, immutable=False):
         if (end - start) <= 0:
             return
 
-        offset = partion_scheme(working_list, start, end)
+        offset = do_hoare_partition(working_list, start, end)
 
         quicksort(start, offset)
         quicksort(offset + 1, end)
@@ -49,16 +50,3 @@ def sort(unsorted_list, partion_scheme=hoare, immutable=False):
     quicksort(0, last_index)
 
     return working_list
-
-
-def main():
-    # collection = sample(range(-100, 100), 199)
-    collection = [1, 7, 2, 6, 1, 9, 15, 11, 3, 30, 21, -5, -3, 12]
-    # collection = [1, 5, 3, 6, 4, 7, 2]
-    # collection = [1, 7, 3, 5, 6]
-    print(sort(collection, hoare, False))
-
-
-#
-#
-main()

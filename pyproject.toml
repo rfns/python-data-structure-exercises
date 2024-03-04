@@ -1,5 +1,4 @@
 [tool.pyright]
-include = ["src"]
  exclude =  ["**/__pycache__"]
 defineConstant = { DEBUG = true }
 stubPath = "src/stubs"
@@ -8,3 +7,12 @@ reportMissingTypeStubs = false
 
 pythonVersion = "3.11.4"
 pythonPlatform = "Linux"
+
+[project]
+name = "algorithms"
+version = "0.1.0"
+description = "A testbed for data structure algorithms"
+
+[build-system]
+build-backend = "flit_core.buildapi"
+requires = ["flit_core >=3.2,<4"]

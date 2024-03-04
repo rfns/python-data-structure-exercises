@@ -1,38 +1,6 @@
-class IndexOutOfBoundsError(Exception):
-    def __init__(self):
-        super().__init__("Index to search is out of bounds.")
+from algorithms.errors import IndexOutOfBoundsError
 
-
-class Node:
-    def __init__(self, val):
-        self.next: Node | None = None
-        self.previous: Node | None = None
-        self.value = val
-
-    def set_next(self, node):
-        self.next = node
-
-    def get_next(self):
-        return self.next
-
-    def get_previous(self):
-        return self.previous
-
-    def set_previous(self, node):
-        self.previous = node
-
-    def get_value(self):
-        return self.value
-
-    def connect(self, node):
-        if node is not None:
-            self.set_next(node)
-            node.set_previous(self)
-
-    def disconnect(self, node):
-        if node is not None:
-            self.set_next(None)
-            node.set_previous(None)
+from .node import Node
 
 
 class LinkedList:
@@ -162,55 +130,3 @@ class LinkedList:
         while tail_node is not None:
             print(tail_node.get_value())
             tail_node = tail_node.get_next()
-
-
-class LinkedListIterator:
-    def __init__(self, list: LinkedList, reverse=False):
-        self.list = list
-        self.tail_node: Node | None = None
-        self.reverse = reverse
-
-    def next(self):
-        if self.tail_node is None:
-            self.tail_node = (
-                self.list.first_node()
-                if self.reverse is False
-                else self.list.last_node()
-            )
-        else:
-            self.tail_node = (
-                self.tail_node.get_next()
-                if self.reverse is False
-                else self.tail_node.get_previous()
-            )
-
-        return self.tail_node is not None
-
-    def get_value(self) -> str:
-        if self.tail_node is not None:
-            return self.tail_node.get_value()
-        return ""
-
-    def get_current(self) -> Node | None:
-        return self.tail_node
-
-
-def init():
-    list = LinkedList()
-    list.append_value(1)  # 0
-    list.append_value(2)  # 1
-    list.append_value(3)  # 2
-
-    list.print()
-    print("-----")
-
-    list.remove_at(1)
-    list.insert_at(0, 10)
-
-    iterator = list.get_iterator()
-
-    while iterator.next():
-        print(iterator.get_value())
-
-
-init()

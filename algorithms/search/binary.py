@@ -41,16 +41,3 @@ def search_iterated(collection, term):
             end = mid
         elif mid_value < term:
             start = mid
-
-
-def main():
-    collection = []
-    for value in range(1000000):
-        collection.append(value)
-    # collection = [1, 5, 8, 9, 13, 17, 20, 26, 23]
-
-    print(search_recursive(collection, 500))
-    print(search_iterated(collection, 672))
-
-
-main()
