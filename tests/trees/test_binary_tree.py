@@ -24,5 +24,6 @@ class TestBinaryTree(unittest.TestCase):
 
         self.assertTrue(tree.insert(value), "returns True if value is inserted.")
         self.assertTrue(
-            tree._root_node is not None, "make sure the node is really inserted."
+            isinstance(tree._root_node, Node) is True,
+            "make sure the node is really inserted.",
         )
