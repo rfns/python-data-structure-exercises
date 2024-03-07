@@ -1,10 +1,16 @@
-class Node:
-    def __init__(self, val):
-        self.next: Node | None = None
-        self.previous: Node | None = None
-        self.value = val
+from typing import Generic, TypeVar, Union
 
-    def set_next(self, node):
+T = TypeVar("T")
+NullableNode = Union["Node[T]", None]
+
+
+class Node(Generic[T]):
+    def __init__(self, value: T):
+        self.next: NullableNode = None
+        self.previous: NullableNode = None
+        self.value = value
+
+    def set_next(self, node: NullableNode):
         self.next = node
 
     def get_next(self):
@@ -13,18 +19,18 @@ class Node:
     def get_previous(self):
         return self.previous
 
-    def set_previous(self, node):
+    def set_previous(self, node: NullableNode):
         self.previous = node
 
-    def get_value(self):
+    def get_value(self) -> T:
         return self.value
 
-    def connect(self, node):
+    def connect(self, node: NullableNode):
         if node is not None:
             self.set_next(node)
             node.set_previous(self)
 
-    def disconnect(self, node):
+    def disconnect(self, node: NullableNode):
         if node is not None:
             self.set_next(None)
             node.set_previous(None)

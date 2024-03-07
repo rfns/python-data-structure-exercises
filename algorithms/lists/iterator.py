@@ -1,11 +1,15 @@
-from .linked_list import LinkedList
-from .node import Node
+from typing import Generic, TypeVar
+
+from .linked_list import LinkedList, NullableValue
+from .node import NullableNode
+
+T = TypeVar("T")
 
 
-class LinkedListIterator:
-    def __init__(self, list: LinkedList, reverse=False):
+class LinkedListIterator(Generic[T]):
+    def __init__(self, list: "LinkedList", reverse=False):
         self.list = list
-        self.tail_node: Node | None = None
+        self.tail_node: NullableNode = None
         self.reverse = reverse
 
     def next(self):
@@ -24,10 +28,10 @@ class LinkedListIterator:
 
         return self.tail_node is not None
 
-    def get_value(self) -> str:
+    def get_value(self) -> NullableValue[T]:
         if self.tail_node is not None:
             return self.tail_node.get_value()
-        return ""
+        return None
 
-    def get_current(self) -> Node | None:
+    def get_current(self) -> NullableNode:
         return self.tail_node
